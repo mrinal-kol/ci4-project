@@ -51,7 +51,7 @@ class Hello extends Controller
                         //if ($model->insert($data)) {
                         Events::trigger('after_form_submit', $data);
                         $send_email_status=$this->sendEmail('mkm000991@gmail.com', 'Student Record Added','A new student has been added.');
-                        echo $send_email_status;
+                        //echo $send_email_status;
                         //exit;
                         return  $this->response->setJSON(['status'=>'success']);
                            // echo "Student inserted successfully!";
