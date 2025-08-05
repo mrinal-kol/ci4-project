@@ -50,7 +50,41 @@ class Hello extends Controller
                     {
                         //if ($model->insert($data)) {
                         Events::trigger('after_form_submit', $data);
-                        $send_email_status=$this->sendEmail('mkm000991@gmail.com', 'Student Record Added','A new student has been added.');
+
+                        $htmlMessage = '
+                        <!DOCTYPE html>
+                        <html lang="en">
+                        <head>
+                          <meta charset="UTF-8">
+                          <title>Student Added</title>
+                          <style>
+                            body { font-family: Arial, sans-serif; background-color: #f4f4f4; }
+                            .container { background: #fff; padding: 20px; border-radius: 6px; max-width: 600px; margin: auto; box-shadow: 0 0 10px rgba(0,0,0,0.1);}
+                            .header { background-color: #4CAF50; color: white; padding: 10px; text-align: center; }
+                            .content { padding: 20px; color: #333; }
+                            .footer { background-color: #eee; padding: 10px; text-align: center; font-size: 12px; color: #777; }
+                          </style>
+                        </head>
+                        <body>
+                          <div class="container">
+                            <div class="header">
+                              <h2>New Student Added</h2>
+                            </div>
+                            <div class="content">
+                              <p>Hello,</p>
+                              <p>A new student record has just been added to the system.</p>
+                              <p><strong>Name:</strong> ' . htmlspecialchars($data['name']) . '</p>
+                              <p><strong>Email:</strong> ' . htmlspecialchars($data['email']) . '</p>
+                              <p>Thank you!</p>
+                            </div>
+                            <div class="footer">
+                              &copy; ' . date('Y') . ' Your Company Name
+                            </div>
+                          </div>
+                        </body>
+                        </html>';
+
+                        $send_email_status=$this->sendEmail('mkm000991@gmail.com', 'Student Record Added',$htmlMessage);
                         //echo $send_email_status;
                         //exit;
                         return  $this->response->setJSON(['status'=>'success']);
