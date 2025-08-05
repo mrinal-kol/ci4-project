@@ -150,8 +150,8 @@ class Hello extends Controller
         $config = [
             'protocol'  => 'smtp',
             'SMTPHost'  => 'smtp.gmail.com',
-            'SMTPUser'  => 'your_email@gmail.com',       // ✅ Your Gmail
-            'SMTPPass'  => 'your_app_password',          // ✅ App password (not Gmail login)
+            'SMTPUser'  => 'ronojit.dev20153@gmail.com',       // ✅ Your Gmail
+            'SMTPPass'  => 'rhsqnjouqbuvtqng',          // ✅ App password (not Gmail login)
             'SMTPPort'  => 587,
             'SMTPCrypto'=> 'tls',
             'mailType'  => 'html',
@@ -161,7 +161,7 @@ class Hello extends Controller
 
         $email->initialize($config);
 
-        $email->setFrom('your_email@gmail.com', 'Your Name');
+        $email->setFrom('mkm000991@gmail.com', 'Amit Sen');
         $email->setTo($to);
         $email->setSubject($subject);
         $email->setMessage($message);
