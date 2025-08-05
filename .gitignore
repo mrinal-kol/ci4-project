@@ -1,0 +1,18 @@
+# Ignore Composer's vendor directory
+/vendor/
+
+# Ignore writable directory
+/writable/
+
+# Ignore environment files
+.env
+
+# PHPUnit cache
+.phpunit.result.cache
+
+# System files
+*.log
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
