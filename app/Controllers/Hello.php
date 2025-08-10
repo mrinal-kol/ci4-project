@@ -51,6 +51,86 @@ class Hello extends Controller
                         //if ($model->insert($data)) {
                         Events::trigger('after_form_submit', $data);
 
+                        $html ='<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Professional Email</title>
+  </head>
+  <body style="margin:0; padding:0; background-color:#f2f4f6; font-family:Helvetica Neue,Helvetica,Arial,sans-serif;">
+    <center style="width:100%; background-color:#f2f4f6;">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#f2f4f6">
+        <tr>
+          <td align="center">
+            <!-- Container -->
+            <table width="600" cellpadding="0" cellspacing="0" border="0" style="background-color:#ffffff; margin: 40px 0; border-radius:8px; overflow:hidden; box-shadow:0 2px 4px rgba(0,0,0,0.1);">
+              
+              <!-- Header -->
+              <tr>
+                <td style="padding: 30px; background-color:#004080; color:#ffffff; text-align:center;">
+                  <h1 style="margin:0; font-size:24px;">Company Name</h1>
+                  <p style="margin:5px 0 0; font-size:14px;">Professional Update</p>
+                </td>
+              </tr>
+
+              <!-- Main Image -->
+              <tr>
+                <td>
+                  <!--<img src="https://via.placeholder.com/600x200?text=Professional+Banner" alt="Banner" style="width:100%; display:block;" />-->
+                  <!--<img src="https://ui-avatars.com/api/?name=Your+Company&background=004080&color=fff&size=150" alt="Company Logo" />-->
+                  <!--<img src="https://images.unsplash.com/photo-1522199710521-72d69614c702?crop=entropy&cs=tinysrgb&fit=crop&h=60&w=200" alt="Logo" />-->
+                </td>
+              </tr>
+
+              <!-- Content Section -->
+              <tr>
+                <td style="padding: 30px; color:#333333;">
+                  <h2 style="margin-top:0;">Subject Line or Greeting</h2>
+                  <p>Dear '.htmlspecialchars($data['name']).',</p>
+                  <p>
+                    We are reaching out to share the latest updates and insights from our team. Here is what is new:
+                  </p>
+                  <ul style="padding-left:20px;">
+                    <li>Update 1: Important announcement or feature</li>
+                    <li>Update 2: Upcoming event or deadline</li>
+                    <li>Update 3: Recent achievement or milestone</li>
+                  </ul>
+                  <p>
+                    We appreciate your continued partnership and look forward to sharing more exciting news soon.
+                  </p>
+                  <p>Best regards,<br><strong>Your Company Team</strong></p>
+                </td>
+              </tr>
+
+              <!-- Call-to-Action Button -->
+              <tr>
+                <td align="center" style="padding: 20px;">
+                  <a href="https://example.com" style="background-color:#007BFF; color:#ffffff; text-decoration:none; padding:12px 24px; font-size:16px; border-radius:4px; display:inline-block;">Learn More</a>
+                </td>
+              </tr>
+
+              <!-- Footer -->
+              <tr>
+                <td style="background-color:#f9f9f9; padding:20px; text-align:center; font-size:12px; color:#777;">
+                  <p style="margin:0;">&copy; 2025 Company Name. All rights reserved.</p>
+                  <p style="margin:5px 0 0;">
+                    <a href="#" style="color:#777; text-decoration:underline;">Unsubscribe</a> |
+                    <a href="#" style="color:#777; text-decoration:underline;">Privacy Policy</a>
+                  </p>
+                </td>
+              </tr>
+
+            </table>
+            <!-- End Container -->
+          </td>
+        </tr>
+      </table>
+    </center>
+  </body>
+</html>
+';
+
                         $htmlMessage = '
                         <!DOCTYPE html>
                         <html lang="en">
@@ -84,7 +164,7 @@ class Hello extends Controller
                         </body>
                         </html>';
 
-                        $send_email_status=$this->sendEmail('mkm000991@gmail.com', 'Student Record Added',$htmlMessage);
+                        $send_email_status=$this->sendEmail('mkm000991@gmail.com', 'Student Record Added',$html);
                         //echo $send_email_status;
                         //exit;
                         return  $this->response->setJSON(['status'=>'success']);
@@ -195,7 +275,7 @@ class Hello extends Controller
 
         $email->initialize($config);
 
-        $email->setFrom('mkm000991@gmail.com', 'Amit Sen');
+        $email->setFrom('ronojit.dev20153@gmail.com', 'Developer Mrinal');
         $email->setTo($to);
         $email->setSubject($subject);
         $email->setMessage($message);
