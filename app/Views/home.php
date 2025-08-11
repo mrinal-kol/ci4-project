@@ -1,6 +1,12 @@
 <?= $this->extend('layouts/main') ?>
 
 <?= $this->section('content') ?>
+<style>
+        #loader {
+            display: none;
+            color: blue;
+        }
+    </style>
 <form id="formValidate" method="post">
     <table class="table">
         <tr>
@@ -34,7 +40,7 @@
         </tr>
     </table>
 </form>
-
+<div id="loader">Loading...</div>
 
 <div id="messageBox"></div>
 <?= $this->endSection() ?>  <!-- CLOSE content section here! -->
@@ -67,6 +73,9 @@ $(document).ready(function() {
                 type: 'POST',
                  dataType: 'json', // ← Important!
                 data: $(form).serialize(),
+                beforeSend: function () {
+        $("#loader").show(); // Show the loader
+      },
                 success: function(response) {
                     console.log(response);
                  if (response.status === 'success') 
