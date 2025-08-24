@@ -74,16 +74,18 @@ $(document).ready(function() {
                  dataType: 'json', // ← Important!
                 data: $(form).serialize(),
                 beforeSend: function () {
-        $("#loader").show(); // Show the loader
-      },
+                    $("#loader").show(); // Show the loader
+                },
                 success: function(response) {
                     console.log(response);
                  if (response.status === 'success') 
                  {
+                    $("#loader").hide();
                     $('#messageBox').html('<div class="alert alert-success">Student added successfully!</div>');
                     $('#formValidate')[0].reset();
                 }
-                else if (response.status === 'error') {
+                else if (response.status === 'error') 
+                {
                     let errorHtml = '<div class="alert alert-danger"><ul>';
                     if (typeof response.errors === 'object') {
                         $.each(response.errors, function(key, value) {
