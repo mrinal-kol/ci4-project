@@ -259,6 +259,8 @@ class Hello extends Controller
 
     public function sendEmail($to , $subject , $message )
     {
+
+        $attachment =  WRITEPATH . 'uploads/1753858588_09eb44b3d2f4c18b27af.jpg'  ;
         $email = \Config\Services::email();
 
         $config = [
@@ -279,6 +281,9 @@ class Hello extends Controller
         $email->setTo($to);
         $email->setSubject($subject);
         $email->setMessage($message);
+        if (!empty($attachment) && file_exists($attachment)) {
+            $email->attach($attachment);
+        }
 
         if ($email->send()) {
             return true;
