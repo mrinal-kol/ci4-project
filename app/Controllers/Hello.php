@@ -426,6 +426,9 @@ class Hello extends Controller
         if ($email->send()) {
             return true;
         } else {
+
+            print_r($email->printDebugger(['headers']));
+            exit;
             log_message('error', 'Email sending failed: ' . print_r($email->printDebugger(['headers']), true));
             return false;
         }
