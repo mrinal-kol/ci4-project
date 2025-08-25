@@ -188,7 +188,7 @@ class Hello extends Controller
                         </body>
                         </html>';
 
-                        $send_email_status=$this->sendEmail('mkm000991@gmail.com', 'Student Record Added',$html);
+                        $send_email_status=$this->sendEmail('mkm000991@gmail.com', 'Student Record Added',$html,$newName);
                         //echo $send_email_status;
                         //exit;
                         return  $this->response->setJSON(['status'=>'success']);
@@ -281,10 +281,11 @@ class Hello extends Controller
     }
 
 
-    public function sendEmail($to , $subject , $message )
+    public function sendEmail($to , $subject , $message,$attachmentName )
     {
 
-        $attachment =  WRITEPATH . 'uploads/1753858588_09eb44b3d2f4c18b27af.jpg'  ;
+        //$attachment =  WRITEPATH . 'uploads/'.$attachmentName  ;
+        $attachment = FCPATH . 'uploads/' . $attachmentName;
         $email = \Config\Services::email();
 
         $config = [

@@ -1,59 +1,57 @@
 <?= $this->extend('layouts/main') ?>
 
 <?= $this->section('content') ?>
-<style>
-        #loader {
-            display: none;
-            color: blue;
-        }
-    </style>
-<form id="formValidate" method="post" enctype="multipart/form-data">
-    <table class="table">
-        <tr>
-            <td>Name</td>
-            <td><input type="text" name="name" value="John Doe" class="form-control"/></td>
-        </tr>
-        <tr>
-            <td>Roll</td>
-            <td><input type="text" name="roll" value="1025" class="form-control"/></td>
-        </tr>
-        <tr>
-            <td>Class</td>
-            <td><input type="text" name="class" value="10" class="form-control"/></td>
-        </tr>
-        <tr>
-            <td>Email</td>
-            <td><input type="text" name="email" value="johndoe@example.com" class="form-control"/></td>
-        </tr>
-        <tr>
-            <td>Phone</td>
-            <td><input type="text" name="phone" value="1234567890" class="form-control"/></td>
-        </tr>
-        <tr>
-            <td>Section</td>
-            <td><input type="text" name="section" value="A" class="form-control"/></td>
-        </tr>
-        <tr>
-                <td>Pic</td>
-                <td><input type="file" name='myfile' /></td>
-            </tr>
-        <tr>
-            <td colspan="2" align="center">
-                <input class="btn btn-primary" type="submit" name="save" value="Add" />
-            </td>
-        </tr>
-    </table>
-</form>
-<div id="loader">Loading...</div>
+<div class="container mt-1">
+    <h3 class="mb-1 text-primary">Add Student</h3>
 
-<div id="messageBox"></div>
-<?= $this->endSection() ?>  <!-- CLOSE content section here! -->
+    <form id="formValidate" method="post" enctype="multipart/form-data" class="p-3 bg-light rounded shadow-sm">
+        <div class="mb-3">
+            <label class="form-label">Name</label>
+            <input type="text" name="name" value="John Doe" class="form-control" placeholder="Enter full name"/>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Roll</label>
+            <input type="text" name="roll" value="1025" class="form-control" placeholder="Enter roll number"/>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Class</label>
+            <input type="text" name="class" value="10" class="form-control" placeholder="Enter class"/>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Email</label>
+            <input type="email" name="email" value="johndoe@example.com" class="form-control" placeholder="Enter email"/>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Phone</label>
+            <input type="text" name="phone" value="1234567890" class="form-control" placeholder="Enter phone number"/>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Section</label>
+            <input type="text" name="section" value="A" class="form-control" placeholder="Enter section"/>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Profile Picture</label>
+            <input type="file" name="myfile" class="form-control"/>
+        </div>
+        <div class="text-center">
+            <button class="btn btn-primary px-4 add_student" type="submit" name="save">
+                <i class="bi bi-save"></i> Add Student
+            </button>
+            <div id="loader" class="text-center mt-3 text-primary fw-bold" style="display:none;">
+                Loading...
+            </div>
+        </div>
+    </form>
 
-<?= $this->section('scripts') ?> <!-- START scripts section AFTER content -->
+    
+    <div id="messageBox" class="mt-3"></div>
+</div>
+<?= $this->endSection() ?>
+
+
+<?= $this->section('scripts') ?>
 <script>
 $(document).ready(function() {
-    //console.log("jQuery loaded and document ready1");
-
     $('#formValidate').validate({
         rules: {
             name: { required: true, minlength: 3 },
@@ -76,48 +74,42 @@ $(document).ready(function() {
             $.ajax({
                 url: "<?= base_url('Hello/add') ?>",
                 type: 'POST',
-                 dataType: 'json', // ← Important!
-                //data: $(form).serialize(),
+                dataType: 'json',
                 data: formData,
-                contentType: false,  // <-- important
+                contentType: false,
                 processData: false, 
                 beforeSend: function () {
-                    $("#loader").show(); // Show the loader
+                    $('.add_student').hide();
+                    $("#loader").show();
                 },
                 success: function(response) {
-                    console.log(response);
-                 if (response.status === 'success') 
-                 {
                     $("#loader").hide();
-                    $('#messageBox').html('<div class="alert alert-success">Student added successfully!</div>');
-                    $('#formValidate')[0].reset();
-                }
-                else if (response.status === 'error') 
-                {
-                    let errorHtml = '<div class="alert alert-danger"><ul>';
-                    if (typeof response.errors === 'object') {
-                        $.each(response.errors, function(key, value) {
-                            errorHtml += '<li>' + value + '</li>';
-                        });
-                    } else {
-                        errorHtml += '<li>' + response.errors + '</li>';
+                    $('.add_student').show();
+                    if (response.status === 'success') {
+                        $('#messageBox').html('<div class="alert alert-success">✅ Student added successfully!</div>');
+                        $('#formValidate')[0].reset();
+                    } else if (response.status === 'error') {
+                        let errorHtml = '<div class="alert alert-danger"><ul>';
+                        if (typeof response.errors === 'object') {
+                            $.each(response.errors, function(key, value) {
+                                errorHtml += '<li>' + value + '</li>';
+                            });
+                        } else {
+                            errorHtml += '<li>' + response.errors + '</li>';
+                        }
+                        errorHtml += '</ul></div>';
+                        $('#messageBox').html(errorHtml);
                     }
-                    errorHtml += '</ul></div>';
-                    $('#messageBox').html(errorHtml);
-                }
 
-                setTimeout(function() {
-                    $('#messageBox').fadeOut('slow', function() {
-                        $(this).html('').show(); // Reset content and restore visibility
-                    });
-                }, 5000);
+                    setTimeout(function() {
+                        $('#messageBox').fadeOut('slow', function() {
+                            $(this).html('').show();
+                        });
+                    }, 5000);
                 }
             });
         }
     });
-
-
 });
-
 </script>
 <?= $this->endSection() ?>
