@@ -1,0 +1,16 @@
+# User uploads
+/public/uploads/
+
+# Environment
+.env
+
+# Dependencies
+/vendor/
+
+# Logs
+writable/logs/
+*.log
+
+# IDE
+.vscode/
+.idea/
