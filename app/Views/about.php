@@ -28,9 +28,18 @@
                     <tr>
                         <td><?= esc($student['id']) ?></td>
                         <td>
+                            <?php
+                            if($student['file_details']!='' || !empty($student['file_details']))
+                            {
+                                ?>
+                            
                             <img src="<?= base_url('uploads/' . esc($student['file_details'])) ?>" 
                                  class="img-thumbnail" 
                                  style="max-width: 70px; height:auto;">
+
+                            <?php
+                            }
+                            ?>
                         </td>
                         <td><?= esc($student['name']) ?></td>
                         <td><?= esc($student['roll']) ?></td>
@@ -42,9 +51,7 @@
                             <a href="<?= base_url('hello/edit/'.$student['id']) ?>" class="btn btn-sm btn-primary">
                                 Edit
                             </a>
-                            <a href="<?= base_url('hello/copy/'.$student['id']) ?>" class="btn btn-sm btn-warning">
-                                Copy
-                            </a>
+                           
                             <a href="<?= base_url('hello/delete/'.$student['id']) ?>" 
                                class="btn btn-sm btn-danger"
                                onclick="return confirm('Are you sure you want to delete this record?');">
