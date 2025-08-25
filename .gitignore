@@ -1,18 +1,17 @@
-# Ignore Composer's vendor directory
-/vendor/
+# Ignore everything inside uploads
+/public/uploads/*
+!public/uploads/.gitignore
 
-# Ignore writable directory
-/writable/
-
-# Ignore environment files
+# Environment
 .env
 
-# PHPUnit cache
-.phpunit.result.cache
+# Dependencies
+/vendor/
 
-# System files
+# Logs
+/writable/logs/
 *.log
-*.swp
-*.swo
-.DS_Store
-Thumbs.db
+
+# IDE / Editor settings
+.vscode/
+.idea/
