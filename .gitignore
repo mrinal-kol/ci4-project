@@ -1,6 +1,29 @@
-# Ignore everything inside uploads
+# Composer's vendor directory
+/vendor/
+
+# User uploads - keep folder but ignore files
 /public/uploads/*
-# But DO track the .gitignore file inside uploads
 !/public/uploads/.gitignore
-# Ignore backup gitignore file
+
+# Writable folder - ignore everything except structure files
+/writable/*
+!/writable/index.html
+!/writable/.htaccess
+
+# Environment files
+.env
+
+# PHPUnit cache
+.phpunit.result.cache
+
+# System & log files
+*.log
+*.swp
+*.swo
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Local backup files
 .gitignore_old
