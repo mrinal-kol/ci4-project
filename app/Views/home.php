@@ -7,7 +7,7 @@
             color: blue;
         }
     </style>
-<form id="formValidate" method="post">
+<form id="formValidate" method="post" enctype="multipart/form-data">
     <table class="table">
         <tr>
             <td>Name</td>
@@ -33,6 +33,10 @@
             <td>Section</td>
             <td><input type="text" name="section" value="A" class="form-control"/></td>
         </tr>
+        <tr>
+                <td>Pic</td>
+                <td><input type="file" name='myfile' /></td>
+            </tr>
         <tr>
             <td colspan="2" align="center">
                 <input class="btn btn-primary" type="submit" name="save" value="Add" />
@@ -68,11 +72,15 @@ $(document).ready(function() {
             section: "Section is required"
         },
         submitHandler: function(form) {
+            var formData = new FormData(form);
             $.ajax({
                 url: "<?= base_url('Hello/add') ?>",
                 type: 'POST',
                  dataType: 'json', // ← Important!
-                data: $(form).serialize(),
+                //data: $(form).serialize(),
+                data: formData,
+                contentType: false,  // <-- important
+                processData: false, 
                 beforeSend: function () {
                     $("#loader").show(); // Show the loader
                 },

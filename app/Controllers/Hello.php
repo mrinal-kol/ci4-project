@@ -25,6 +25,29 @@ class Hello extends Controller
     {
         //echo $this->request->getMethod();
         if ($this->request->getMethod() === 'POST') {
+
+
+              $file = $this->request->getFile('myfile');
+
+              if ($file && $file->isValid() && !$file->hasMoved()) {
+                  $newName = $file->getRandomName();
+
+                  if ($file->move(FCPATH . 'uploads', $newName)) {
+                      //echo "File uploaded successfully: " . $newName;
+                  } else {
+                      // Move failed
+                      echo "File could not be moved!";
+                      exit;
+                  }
+              } else {
+                  // Show error details
+                  echo "File upload failed!<br>";
+                  echo "Error Code: " . $file->getError() . "<br>";
+                  echo "Error Message: " . $file->getErrorString();
+                  exit;
+              }
+
+
             //echo "<pre>";
             $data = $this->request->getPost();
             //print_r($data); // Outputs all form values
@@ -35,6 +58,7 @@ class Hello extends Controller
                 'email'   => $this->request->getPost('email'),
                 'phone'   => $this->request->getPost('phone'),
                 'section' => $this->request->getPost('section'),
+                'file_details' => $newName,
             ];
 
             //$model = new StudentModel();
