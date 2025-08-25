@@ -1,17 +1,6 @@
 # Ignore everything inside uploads
 /public/uploads/*
-!public/uploads/.gitignore
-
-# Environment
-.env
-
-# Dependencies
-/vendor/
-
-# Logs
-/writable/logs/
-*.log
-
-# IDE / Editor settings
-.vscode/
-.idea/
+# But DO track the .gitignore file inside uploads
+!/public/uploads/.gitignore
+# Ignore backup gitignore file
+.gitignore_old
