@@ -10,6 +10,9 @@ use App\Libraries\Addrecord;
 
 class Hello extends Controller
 {
+
+    
+
     public function index()
     {
         return view('home', [
@@ -303,6 +306,116 @@ class Hello extends Controller
         $email->initialize($config);
 
         $email->setFrom('ronojit.dev20153@gmail.com', 'Developer Mrinal');
+        $email->setTo($to);
+        $email->setSubject($subject);
+        $email->setMessage($message);
+        if (!empty($attachment) && file_exists($attachment)) {
+            $email->attach($attachment);
+        }
+
+        if ($email->send()) {
+            return true;
+        } else {
+            log_message('error', 'Email sending failed: ' . print_r($email->printDebugger(['headers']), true));
+            return false;
+        }
+    }
+    public function jobpost()
+    {
+        return view('jobPost_email');
+    }
+
+    public function jobpostemail()
+    {
+        $data = $this->request->getPost();
+
+        // Professional email body in HTML
+        $html = '
+        <div style="font-family:Arial, sans-serif; font-size:14px; color:#333; line-height:1.6;">
+            <p>Dear Hiring Manager,</p>
+
+            <p>I am writing to formally apply for the position of 
+            <strong>Web Developer / PHP Developer</strong> at <strong>[Company Name]</strong>. 
+            With <strong>8 years of professional experience</strong> in web development, I have developed 
+            extensive expertise in <strong>PHP (Core & OOPs), CodeIgniter, Laravel, Magento, MySQL, 
+            JavaScript, jQuery, Ajax, Bootstrap, HTML5, and CSS3</strong>. 
+            Additionally, I have hands-on experience with <strong>API integration, payment gateway solutions, 
+            and AWS cloud services</strong>.</p>
+
+            <p>At <strong>Celex Technologies Pvt. Ltd.</strong>, I led and contributed to multiple projects 
+            in travel technology, e-commerce, and fintech, including:</p>
+
+            <ul>
+                <li><strong>MakeMyHSRP.com</strong> – A high-security registration plate management system 
+                    built with PHP, MySQL, AWS, and integrated payment gateways.</li>
+                <li><strong>TripCheers.com & MSTHappyJourney.com</strong> – Travel booking platforms (flights, hotels, 
+                    holidays, recharges) with multi-currency support and agent commission modules.</li>
+                <li>Custom <strong>CRM and ERP applications</strong> with secure integrations of PayPal, PayU, 
+                    CCAvenue, Easebuzz, and CyberPlat APIs.</li>
+            </ul>
+
+            <p>I hold an <strong>MCA degree from Sikkim Manipal Institute of Technology</strong> and 
+            have consistently demonstrated the ability to deliver efficient, scalable, and business-driven 
+            solutions. I am particularly interested in this opportunity because of <strong>[reason tailored to company – 
+            e.g., cutting-edge projects, growth-oriented environment, or reputation for innovation]</strong>.</p>
+
+            <p>Enclosed is my resume for your review. I would be delighted to discuss in more detail how 
+            my skills and background align with your requirements and how I can contribute to your team’s success.</p>
+
+            <p>Thank you for your time and consideration.</p>
+
+            <br>
+            <p>
+            Best regards,<br>
+            <strong>Mrinal Kanti Mandal</strong><br>
+            📞 8951167690 | 9433416097 | 6361386997<br>
+            📍 Kalipark, Kolkata<br>
+            ✉️ mkm000991@gmail.com
+            </p>
+        </div>
+        ';
+
+        // Attach resume (adjust path as per your upload logic)
+        $resumePath = FCPATH . 'uploads/' . ($data['resume'] ?? 'Mrinal_Kanti_Mandal_Resume.docx');
+
+        // Send email
+        $send_email_status = $this->jobPostsendEmail(
+            'mkm000991@gmail.com', // <-- recruiter email here
+            'Application for Web Developer / PHP Developer – Mrinal Kanti Mandal', 
+            $html, 
+            $resumePath
+        );
+
+        if ($send_email_status) {
+            return "✅ Application email sent successfully.";
+        } else {
+            return "❌ Failed to send application email.";
+        }
+    }
+
+
+    public function jobPostsendEmail($to , $subject , $message,$attachmentName )
+    {
+
+        //$attachment =  WRITEPATH . 'uploads/'.$attachmentName  ;
+        $attachment = FCPATH . 'uploads/' . $attachmentName;
+        $email = \Config\Services::email();
+
+        $config = [
+            'protocol'  => 'smtp',
+            'SMTPHost'  => 'smtp.gmail.com',
+            'SMTPUser'  => 'ronojit.dev20153@gmail.com',       // ✅ Your Gmail
+            'SMTPPass'  => 'rhsqnjouqbuvtqng',          // ✅ App password (not Gmail login)
+            'SMTPPort'  => 587,
+            'SMTPCrypto'=> 'tls',
+            'mailType'  => 'html',
+            'charset'   => 'utf-8',
+            'newline'   => "\r\n",
+        ];
+
+        $email->initialize($config);
+
+        $email->setFrom('ronojit.dev20153@gmail.com', 'Mrinal');
         $email->setTo($to);
         $email->setSubject($subject);
         $email->setMessage($message);
