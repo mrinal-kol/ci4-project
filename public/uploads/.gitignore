@@ -1,5 +1,6 @@
 # User uploads
-/public/uploads/
+/public/uploads/*
+!public/uploads/.gitignore
 
 # Environment
 .env
@@ -8,9 +9,9 @@
 /vendor/
 
 # Logs
-writable/logs/
+/writable/logs/
 *.log
 
-# IDE
+# IDE / Editor settings
 .vscode/
 .idea/
