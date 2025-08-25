@@ -225,7 +225,7 @@ class Hello extends Controller
             $newName = $file->getRandomName();
 
             // Move the file to writable/uploads
-            $file->move(WRITEPATH . 'uploads', $newName); // FCPATH WRITEPATH
+            $file->move(FCPATH . 'uploads', $newName); // FCPATH WRITEPATH
 
             echo "File uploaded successfully: " . $newName;
         } else {
