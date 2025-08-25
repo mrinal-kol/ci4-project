@@ -5,10 +5,8 @@
 /public/uploads/*
 !/public/uploads/.gitignore
 
-# Writable folder - ignore everything except structure files
-/writable/*
-!/writable/index.html
-!/writable/.htaccess
+# Writable folder - ignore everything
+/writable/
 
 # Environment files
 .env
