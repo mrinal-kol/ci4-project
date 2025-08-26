@@ -33,6 +33,8 @@
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item"><a class="nav-link" href="<?= base_url('hello') ?>">Home</a></li>
                 <li class="nav-item"><a class="nav-link" href="<?= base_url('about') ?>">About</a></li>
+                <li class="nav-item"><a class="nav-link" href="<?= base_url('jobPost') ?>">Job Send Email</a></li>
+                <li class="nav-item"><a class="nav-link" href="<?= base_url('upload-image') ?>">Image To Pdf</a></li>
                 <li class="nav-item"><a class="nav-link" href="<?= base_url('contact') ?>">Contact</a></li>
             </ul>
         </div>

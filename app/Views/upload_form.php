@@ -1,4 +1,7 @@
 
+<?= $this->extend('layouts/main') ?>
+
+<?= $this->section('content') ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -30,3 +33,4 @@
 
 </body>
 </html>
+<?= $this->endSection() ?>
