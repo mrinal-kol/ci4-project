@@ -327,6 +327,11 @@ class Hello extends Controller
 
     public function jobpostemail()
     {
+      
+      if ($this->request->getMethod() === 'POST') 
+      {
+        
+
         $data = $this->request->getPost();
         $fullname   = $data['fullname'];
         $from_email      = $data['email'];
@@ -381,7 +386,16 @@ class Hello extends Controller
         ';
 
         // Attach resume (adjust path as per your upload logic)
-        $resumePath = FCPATH . 'uploads/' . ($data['resume'] ?? 'Mrinal_Kanti_Mandal_Resume.docx');
+        //$resumePath = FCPATH . 'uploads/' . ($data['resume'] ?? 'Mrinal_Kanti_Mandal_Resume.docx');
+        
+        $resumeFile = $this->request->getFile('resume');
+        $resumePath = '';
+        if ($resumeFile && $resumeFile->isValid() && !$resumeFile->hasMoved()) {
+            $newName = $resumeFile->getRandomName();  
+            $resumeFile->move(FCPATH . 'uploads', $newName);  
+            $resumePath = FCPATH . 'uploads/' . $newName;
+        }
+
         $subject = 'Application for '.$position.' -'.$fullname;
         // Send email
         $send_email_status = $this->jobPostsendEmail($to_email, $subject, $html, $resumePath,$from_email);
@@ -395,6 +409,11 @@ class Hello extends Controller
         }
 
         return view('jobPost_email', $data);
+      }
+      else{
+        
+        return redirect()->to(base_url('jobPost'));
+      }
     }
 
 
@@ -402,7 +421,8 @@ class Hello extends Controller
     {
 
         //$attachment =  WRITEPATH . 'uploads/'.$attachmentName  ;
-        $attachment = FCPATH . 'uploads/' . $attachmentName;
+        $attachment =$attachmentName;
+        //$attachment = FCPATH . 'uploads/' . $attachmentName;
         $email = \Config\Services::email();
 
         $config = [
