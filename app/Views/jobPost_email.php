@@ -1,4 +1,3 @@
-
 <?= $this->extend('layouts/main') ?>
 
 <?= $this->section('content') ?>
@@ -12,42 +11,57 @@
     body {
       font-family: Arial, sans-serif;
       background: #f9f9f9;
-      padding: 20px;
+      margin: 0;
+      padding: 0px;
     }
     .form-container {
-      max-width: 600px;
-      margin: auto;
+      width: 100%;
+      max-width: 100%;
       background: #fff;
-      padding: 25px;
-      border-radius: 10px;
+      padding: 4px 40px 40px 40px;
+      border-radius: 0;
       box-shadow: 0 2px 10px rgba(0,0,0,0.1);
     }
     .form-container h2 {
       text-align: center;
+      margin-bottom: 4px;
+      font-size: 28px;
+      color: #333;
+    }
+    .form-group {
+      display: flex;
+      align-items: center;
       margin-bottom: 20px;
     }
-    label {
+    .form-group label {
+      width: 200px; /* fixed label width */
       font-weight: bold;
-      display: block;
-      margin-top: 15px;
+      color: #444;
     }
-    input, textarea, select {
-      width: 100%;
-      padding: 10px;
-      margin-top: 5px;
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      flex: 1;
+      padding: 12px;
       border: 1px solid #ccc;
       border-radius: 6px;
+      font-size: 15px;
+    }
+    .form-group textarea {
+      min-height: 73px;
     }
     button {
-      margin-top: 20px;
-      width: 100%;
-      padding: 12px;
+      display: block;
+      margin: 30px auto 0;
+      width: 300px;
+      padding: 15px;
       background: #0073e6;
       color: #fff;
       border: none;
-      border-radius: 6px;
+      border-radius: 8px;
       cursor: pointer;
-      font-size: 16px;
+      font-size: 17px;
+      font-weight: bold;
     }
     button:hover {
       background: #005bb5;
@@ -57,30 +71,47 @@
 <body>
   <div class="form-container">
     <h2>Job Application Form</h2>
-    <!-- Updated to submit to CodeIgniter route -->
     <form action="<?= base_url('sendjobPost') ?>" method="post" enctype="multipart/form-data">
       
-      <label for="fullname">Full Name</label>
-      <input type="text" id="fullname" name="fullname" value="Mrinal Kanti Mandal" required>
+      <div class="form-group">
+        <label for="fullname">Full Name</label>
+        <input type="text" id="fullname" name="fullname" value="Mrinal Kanti Mandal" required>
+      </div>
       
-      <label for="email">Email</label>
-      <input type="email" id="email" name="email" value="mkm000991@gmail.com" required>
+      <div class="form-group">
+        <label for="email">From Email</label>
+        <input type="email" id="email" name="email" value="mkm000991@gmail.com" required>
+      </div>
+
+      <div class="form-group">
+        <label for="toemail">To Email</label>
+        <input type="email" id="toemail" name="toemail" value="" required>
+      </div>
       
-      <label for="phone">Phone Number</label>
-      <input type="tel" id="phone" name="phone" value="8951167690, 9433416097, 6361386997" required>
+      <div class="form-group">
+        <label for="phone">Phone Number</label>
+        <input type="tel" id="phone" name="phone" value="8951167690 / 9433416097 / 6361386997" required>
+      </div>
       
-      <label for="position">Position Applied For</label>
-      <input type="text" id="position" name="position" value="Web Developer / PHP Developer" required>
+      <div class="form-group">
+        <label for="position">Position Applied For</label>
+        <input type="text" id="position" name="position" value="Web Developer / PHP Developer" required>
+      </div>
       
-      <label for="experience">Years of Experience</label>
-      <input type="number" id="experience" name="experience" value="8" min="0" required>
+      <div class="form-group">
+        <label for="experience">Years of Experience</label>
+        <input type="number" id="experience" name="experience" value="8" min="0" required>
+      </div>
       
-      <label for="skills">Key Skills</label>
-      <textarea id="skills" name="skills" rows="4">PHP, CodeIgniter, Laravel, Magento, MySQL, Ajax, jQuery, Bootstrap, HTML5, CSS3, JavaScript, API Integration, Payment Gateways, AWS</textarea>
+      <div class="form-group">
+        <label for="skills">Key Skills</label>
+        <textarea id="skills" name="skills">PHP, CodeIgniter, Laravel, Magento, MySQL, Ajax, jQuery, Bootstrap, HTML5, CSS3, JavaScript, API Integration, Payment Gateways, AWS</textarea>
+      </div>
       
-      
-      <label for="resume">Upload Resume</label>
-      <input type="file" id="resume" name="resume" accept=".pdf,.doc,.docx" required>
+      <div class="form-group">
+        <label for="resume">Upload Resume</label>
+        <input type="file" id="resume" name="resume" accept=".pdf,.doc,.docx" required>
+      </div>
       
       <button type="submit">Submit Application</button>
     </form>
