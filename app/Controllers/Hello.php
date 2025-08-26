@@ -7,7 +7,7 @@ use CodeIgniter\Controller;
 use App\Models\StudentModel;
 use CodeIgniter\Events\Events;
 use App\Libraries\Addrecord;
-
+//use TCPDF;
 class Hello extends Controller
 {
 
@@ -435,6 +435,44 @@ class Hello extends Controller
     }
 
 
+    public function pdfConvert()
+    {
+        return view('upload_form');
+    }
+    public function uploadImage()
+    {
+        try {
+            // Load TCPDF manually
+            require_once APPPATH . 'Libraries/tcpdf/tcpdf.php';
+
+            $file = $this->request->getFile('image');
+
+            if (!$file->isValid()) {
+                return redirect()->back()->with('error', 'Please select a valid image.');
+            }
+
+            // Move uploaded file to writable/uploads
+            $newName = $file->getRandomName();
+            $file->move(WRITEPATH . 'uploads', $newName);
+            $filePath = WRITEPATH . 'uploads/' . $newName;
+
+            // Create PDF
+            $pdf = new \TCPDF();
+            $pdf->AddPage();
+
+            // Full-page A4 (210 x 297 mm)
+            $pdf->Image($filePath, 10, 10, 190, 0, '', '', '', false, 300);
+
+            // Send as download
+            $this->response->setHeader('Content-Type', 'application/pdf');
+            $pdf->Output('converted.pdf', 'D'); // D = download
+
+        } catch (\Exception $e) {
+            // Log error and show friendly message
+            log_message('error', 'PDF Generation Error: ' . $e->getMessage());
+            return redirect()->back()->with('error', 'Something went wrong while generating the PDF.');
+        }
+    }
 
 
 }
