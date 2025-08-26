@@ -387,10 +387,14 @@ class Hello extends Controller
         $send_email_status = $this->jobPostsendEmail($to_email, $subject, $html, $resumePath,$from_email);
 
         if ($send_email_status) {
-            return "✅ Application email sent successfully.";
+           // return "✅ Application email sent successfully.";
+           $data['message'] = "✅ Application email sent successfully.";
         } else {
-            return "❌ Failed to send application email.";
+           // return "❌ Failed to send application email.";
+           $data['message'] = "❌ Failed to send application email.";
         }
+
+        return view('jobPost_email', $data);
     }
 
 

@@ -71,6 +71,18 @@
 <body>
   <div class="form-container">
     <h2>Job Application Form</h2>
+      <!-- ✅ Success / Failure Message -->
+        <?php if (isset($message)): ?>
+            <div id="flash-message"  style="padding:12px; margin:15px 0;border-radius:6px;font-weight:bold;
+                        <?php if (strpos($message, '✅') !== false): ?>
+                            background:#d4edda; color:#155724; border:1px solid #c3e6cb;
+                        <?php else: ?>
+                            background:#f8d7da; color:#721c24; border:1px solid #f5c6cb;
+                        <?php endif; ?>">
+                <?= $message ?>
+            </div>
+        <?php endif; ?>
+      <!-- ✅ End Message -->
     <form action="<?= base_url('sendjobPost') ?>" method="post" enctype="multipart/form-data">
       
       <div class="form-group">
@@ -118,4 +130,15 @@
   </div>
 </body>
 </html>
+<script>
+        // Hide message after 5 seconds
+        setTimeout(function() {
+            var msg = document.getElementById("flash-message");
+            if (msg) {
+                msg.style.transition = "opacity 1s";
+                msg.style.opacity = "0";
+                setTimeout(() => msg.remove(), 1000); // fully remove after fade
+            }
+        }, 5000);
+    </script>
 <?= $this->endSection() ?>
