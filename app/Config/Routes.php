@@ -14,7 +14,8 @@ $routes->post('hello/update', 'Hello::update');
 $routes->get('jobPost', 'Hello::jobpost');
 //$routes->post('sendjobPost', 'Hello::jobpostemail');
 $routes->get('upload-image', 'Hello::pdfConvert');
-$routes->post('upload-image', 'Hello::uploadImage');
+//$routes->post('upload-image', 'Hello::uploadImage');  //skinImage
+$routes->post('upload-image', 'Hello::skinImage'); 
 $routes->match(['get', 'post'], 'sendjobPost', 'Hello::jobpostemail');
 
 //$routes->setAutoRoute(true);

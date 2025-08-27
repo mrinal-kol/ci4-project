@@ -545,6 +545,59 @@ class Hello extends Controller
         }
     }
 
+    public function skinImage()
+    {
+
+       try {
+            require_once APPPATH . 'Libraries/tcpdf/tcpdf.php';
+            $file = $this->request->getFile('image');
+
+            if ($file->isValid() && !$file->hasMoved()) 
+            {
+                $newName = $file->getRandomName();
+                $file->move(WRITEPATH . 'uploads', $newName);
+
+                // Load TCPDF library
+                $pdf = new \TCPDF();
+                $pdf->setPrintHeader(false);
+                $pdf->setPrintFooter(false);
+                $pdf->AddPage();
+
+                $imagePath = WRITEPATH . 'uploads/' . $newName;
+
+                // Insert image inside PDF
+                $pdf->Image($imagePath, 15, 30, 180, 0, '', '', '', false, 300);
+                // Insert image inside PDF (fit width of A4)
+                //$pdf->Image($imagePath, 0, 0, 210, 297, '', '', '', false, 300, '', false, false, 0);
+
+                
+                // Optional: Add header text
+                //$pdf->SetFont('helvetica', 'B', 14);
+                //$pdf->SetY(10);
+                //$pdf->Cell(0, 10, 'Soft Copy Document', 0, 1, 'C');
+
+                // Save output as PDF
+                //$pdfName = WRITEPATH . 'uploads/' . pathinfo($newName, PATHINFO_FILENAME) . '.pdf';
+                //$pdf->Output($pdfName, 'F');
+                $this->response->setHeader('Content-Type', 'application/pdf');
+                $pdf->Output('converted.pdf', 'D'); // D = download
+
+                //echo "✅ Soft copy generated: " . $pdfName;
+            } 
+            else 
+            {
+                //echo "❌ Invalid file upload.";
+            }
+        } 
+        catch (\Exception $e) 
+        {
+            // Log error and show friendly message
+            log_message('error', 'PDF Generation Error: ' . $e->getMessage());
+            return redirect()->back()->with('error', 'Something went wrong while generating the PDF.');
+        }
+    }
+
+
 
 }
 
