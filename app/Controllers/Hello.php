@@ -327,6 +327,11 @@ class Hello extends Controller
 
     public function jobpostemail()
     {
+
+      /*
+        careers@freshworks.com,careers@zohocorp.com,careers@browserstack.com,careers@postman.com,careers@tallysolutions.com,careers@inmobi.com,careers@cleartax.in,careers@mindfiresolutions.com,hr@binaryfolks.com,careers@indusnet.co.in,hr@esolz.net,hr@corelynx.com,hr@cyberswift.net,hr@citytechcorp.com,hr@kreeti.com,info@webguru-india.com,career@technosoft.com,hr@nextgen.com,hr@teamcognito.com,contact@innofied.com,hr@peconsoftware.com,careers@fusionbpo.com,hr@unifiedinfotech.net,info@anisoftech.com,hr@idealogic.com,hr@turing.com,career@binaryic.com,careers@mobisoftinfotech.com,hr@tatainfotech.com,careers@niit-tech.com,hr@ust-global.com,careers@hexaware.com,hr@zensar.com,careers@persistent.com,hr@sonata-software.com,hr@ramco.com,careers@newgensoft.com,hr@happiestminds.com,careers@exlservice.com,hr@subex.com,careers@cyient.com,hr@infogain.com,careers@zycus.com,hr@icertis.com,careers@nagarro.com,hr@tataelxsi.com,careers@fractal.ai,hr@musigma.com,hr@xoriant.com,careers@mindtree.com,careers@mphasis.com,hr@birlasoft.com,careers@coforge.com,hr@niit.com,hr@capillarytech.com,careers@iifl.com,hr@intellectdesign.com,careers@lntinfotech.com,hr@niit-tech.com,careers@aurionpro.com,hr@subexworld.com,hr@synechron.com,careers@ust.com,hr@kpit.com,careers@sasken.com,hr@infrasofttech.com,careers@zensar.com,hr@teksystems.com,careers@trigent.com,hr@infobeans.com,hr@qburst.com,careers@volansys.com,hr@tothenew.com,careers@valuelabs.com,hr@harman.com,careers@hexagon.com,hr@geekyants.com,careers@accenture.com,hr@hcl.com,hr@infosys.com,hr@wipro.com,hr@tcs.com,careers@cognizant.com,careers@capgemini.com,hr@techmahindra.com,hr@ibm.com,hr@oracle.com,hr@sap.com,hr@adobe.com,hr@deloitte.com,hr@pwc.com,careers@ey.com,hr@kpmg.com,hr@siemens.com,careers@bosch.com,hr@nokia.com,careers@ericsson.com
+
+      */
       
       if ($this->request->getMethod() === 'POST') 
       {
@@ -439,7 +444,7 @@ class Hello extends Controller
 
         $email->initialize($config);
 
-        $email->setFrom('ronojit.dev20153@gmail.com', 'Mrinal');
+        $email->setFrom($from_email, 'Mrinal');
         $email->setTo($to);
         $email->setSubject($subject);
         $email->setMessage($message);
