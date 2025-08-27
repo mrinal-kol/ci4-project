@@ -97,7 +97,7 @@
 
       <div class="form-group">
         <label for="toemail">To Email</label>
-        <input type="email" id="toemail" name="toemail" value="" required>
+        <input type="text" id="toemail" name="toemail" value="" required>
       </div>
       
       <div class="form-group">
@@ -122,7 +122,7 @@
       
       <div class="form-group">
         <label for="resume">Upload Resume</label>
-        <input type="file" id="resume" name="resume" accept=".pdf,.doc,.docx" required>
+        <input type="file" id="resume" name="resume" accept=".pdf,.doc,.docx" >
       </div>
       
       <button type="submit">Submit Application</button>

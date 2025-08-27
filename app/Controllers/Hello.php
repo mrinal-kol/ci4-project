@@ -337,6 +337,31 @@ class Hello extends Controller
       {
         
 
+        
+
+          $emails1 = "careers@freshworks.com,careers@zohocorp.com,careers@browserstack.com,careers@postman.com,careers@tallysolutions.com,careers@inmobi.com,careers@cleartax.in,careers@mindfiresolutions.com,hr@binaryfolks.com,careers@indusnet.co.in";
+
+          $emails2 = "hr@esolz.net,hr@corelynx.com,hr@cyberswift.net,hr@citytechcorp.com,hr@kreeti.com,info@webguru-india.com,career@technosoft.com,hr@nextgen.com,hr@teamcognito.com,contact@innofied.com";
+
+          $emails3 = "hr@peconsoftware.com,careers@fusionbpo.com,hr@unifiedinfotech.net,info@anisoftech.com,hr@idealogic.com,hr@turing.com,career@binaryic.com,careers@mobisoftinfotech.com,hr@tatainfotech.com,careers@niit-tech.com";
+
+          $emails4 = "hr@ust-global.com,careers@hexaware.com,hr@zensar.com,careers@persistent.com,hr@sonata-software.com,hr@ramco.com,careers@newgensoft.com,hr@happiestminds.com,careers@exlservice.com,hr@subex.com";
+
+          $emails5 = "careers@cyient.com,hr@infogain.com,careers@zycus.com,hr@icertis.com,careers@nagarro.com,hr@tataelxsi.com,careers@fractal.ai,hr@musigma.com,hr@xoriant.com,careers@mindtree.com";
+
+          $emails6 = "careers@mphasis.com,hr@birlasoft.com,careers@coforge.com,hr@niit.com,hr@capillarytech.com,careers@iifl.com,hr@intellectdesign.com,careers@lntinfotech.com,hr@niit-tech.com,careers@aurionpro.com";
+
+          $emails7 = "hr@subexworld.com,hr@synechron.com,careers@ust.com,hr@kpit.com,careers@sasken.com,hr@infrasofttech.com,careers@zensar.com,hr@teksystems.com,careers@trigent.com,hr@infobeans.com";
+
+          $emails8 = "hr@qburst.com,careers@volansys.com,hr@tothenew.com,careers@valuelabs.com,hr@harman.com,careers@hexagon.com,hr@geekyants.com,careers@accenture.com,hr@hcl.com,hr@infosys.com";
+
+          $emails9 = "hr@wipro.com,hr@tcs.com,careers@cognizant.com,careers@capgemini.com,hr@techmahindra.com,hr@ibm.com,hr@oracle.com,hr@sap.com,hr@adobe.com,hr@deloitte.com";
+
+          $emails10 = "hr@pwc.com,careers@ey.com,hr@kpmg.com,hr@siemens.com,careers@bosch.com,hr@nokia.com,careers@ericsson.com";
+
+
+        
+
         $data = $this->request->getPost();
         $fullname   = $data['fullname'];
         $from_email      = $data['email'];
@@ -345,6 +370,12 @@ class Hello extends Controller
         $experience = $data['experience'];
         $skills     = $data['skills'];
         $to_email     = $data['toemail'];
+
+        //$to_email     = $emails10;
+
+        //print_r($to_email);
+        //exit;
+
         // Professional email body in HTML
         $html = '
         <div style="font-family:Arial, sans-serif; font-size:14px; color:#333; line-height:1.6;">
@@ -392,7 +423,7 @@ class Hello extends Controller
 
         // Attach resume (adjust path as per your upload logic)
         //$resumePath = FCPATH . 'uploads/' . ($data['resume'] ?? 'Mrinal_Kanti_Mandal_Resume.docx');
-        
+        /*
         $resumeFile = $this->request->getFile('resume');
         $resumePath = '';
         if ($resumeFile && $resumeFile->isValid() && !$resumeFile->hasMoved()) {
@@ -400,7 +431,9 @@ class Hello extends Controller
             $resumeFile->move(FCPATH . 'uploads', $newName);  
             $resumePath = FCPATH . 'uploads/' . $newName;
         }
+        */
 
+        $resumePath = FCPATH . 'uploads/' .'1756203084_2bbc0a366f7b2ecf86e5.docx';
         $subject = 'Application for '.$position.' -'.$fullname;
         // Send email
         $send_email_status = $this->jobPostsendEmail($to_email, $subject, $html, $resumePath,$from_email);
@@ -425,6 +458,10 @@ class Hello extends Controller
     public function jobPostsendEmail($to , $subject , $message,$attachmentName,$from_email)
     {
 
+        
+        $to_emails = array_map('trim', explode(',', $to));
+        
+
         //$attachment =  WRITEPATH . 'uploads/'.$attachmentName  ;
         $attachment =$attachmentName;
         //$attachment = FCPATH . 'uploads/' . $attachmentName;
@@ -444,24 +481,28 @@ class Hello extends Controller
 
         $email->initialize($config);
 
-        $email->setFrom($from_email, 'Mrinal');
-        $email->setTo($to);
-        $email->setSubject($subject);
-        $email->setMessage($message);
-        if (!empty($attachment) && file_exists($attachment)) {
-            $email->attach($attachment);
-        }
+        foreach ($to_emails as $recipient) {
+            if (!filter_var($recipient, FILTER_VALIDATE_EMAIL)) {
+                log_message('error', "Invalid email skipped: $recipient");
+                continue;
+            }
 
-        if ($email->send()) {
-            return true;
-        } else {
+            $email->clear(true); // ✅ clear previous headers, attachments, etc.
 
-            print_r($email->printDebugger(['headers']));
-            
-            log_message('error', 'Email sending failed: ' . print_r($email->printDebugger(['headers']), true));
-            exit;
-            return false;
+            $email->setFrom($from_email, 'Mrinal');
+            $email->setTo($recipient);
+            $email->setSubject($subject);
+            $email->setMessage($message);
+
+            if (!empty($attachment) && file_exists($attachment)) {
+                $email->attach($attachment);
+            }
+
+            if (!$email->send()) {
+                log_message('error', 'Email sending failed for ' . $recipient . ': ' . print_r($email->printDebugger(['headers']), true));
+            }
         }
+        return true;
     }
 
 
