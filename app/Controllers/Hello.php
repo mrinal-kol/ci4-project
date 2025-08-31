@@ -26,6 +26,7 @@ class Hello extends Controller
 
     public function add()
     {
+        $newName='';
         //echo $this->request->getMethod();
         if ($this->request->getMethod() === 'POST') {
 
@@ -39,15 +40,18 @@ class Hello extends Controller
                       //echo "File uploaded successfully: " . $newName;
                   } else {
                       // Move failed
-                      echo "File could not be moved!";
-                      exit;
+                      //echo "File could not be moved!";
+                      //exit;
+                      return $this->response->setJSON([ 'status' => 'error','errors' => 'error in upload file']);
                   }
               } else {
+                //return $this->response->setJSON([ 'status' => 'error','errors' => 'error in upload file']);
+                //exit;
                   // Show error details
-                  echo "File upload failed!<br>";
-                  echo "Error Code: " . $file->getError() . "<br>";
-                  echo "Error Message: " . $file->getErrorString();
-                  exit;
+                  //echo "File upload failed!<br>";
+                  //echo "Error Code: " . $file->getError() . "<br>";
+                  //echo "Error Message: " . $file->getErrorString();
+                 // exit;
               }
 
 

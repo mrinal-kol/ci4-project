@@ -50,6 +50,7 @@
 
 
 <?= $this->section('scripts') ?>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
 $(document).ready(function() {
     $('#formValidate').validate({
@@ -88,6 +89,12 @@ $(document).ready(function() {
                     if (response.status === 'success') {
                         $('#messageBox').html('<div class="alert alert-success">✅ Student added successfully!</div>');
                         $('#formValidate')[0].reset();
+                         Swal.fire({
+                            title: 'Success!',
+                            text: 'Your data has been saved successfully.',
+                            icon: 'success',
+                            confirmButtonText: 'OK'
+                        });
                     } else if (response.status === 'error') {
                         let errorHtml = '<div class="alert alert-danger"><ul>';
                         if (typeof response.errors === 'object') {
