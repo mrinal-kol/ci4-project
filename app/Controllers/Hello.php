@@ -382,47 +382,48 @@ class Hello extends Controller
 
         // Professional email body in HTML
         $html = '
-        <div style="font-family:Arial, sans-serif; font-size:14px; color:#333; line-height:1.6;">
-            <p>Dear Hiring Manager,</p>
+              <div style="font-family:Arial, sans-serif; font-size:14px; color:#333; line-height:1.6;">
+          <p>Dear Hiring Manager,</p>
 
-            <p>I am writing to formally apply for the position of 
-            <strong>Web Developer / PHP Developer . 
-            With <strong>'.$experience.' years of professional experience</strong> in web development, I have developed 
-            extensive expertise in <strong>PHP (Core & OOPs), CodeIgniter, Laravel, Magento, MySQL, 
-            JavaScript, jQuery, Ajax, Bootstrap, HTML5, and CSS3</strong>. 
-            Additionally, I have hands-on experience with <strong>API integration, payment gateway solutions, 
-            and AWS cloud services</strong>.</p>
+          <p>I am writing to formally apply for the position of 
+          <strong>Web Developer / PHP Developer</strong>. 
+          With <strong>'.$experience.' years of professional experience</strong> in web development, I have developed 
+          extensive expertise in <strong>PHP (Core & OOPs), CodeIgniter, Laravel, Magento, MySQL, 
+          JavaScript, jQuery, Ajax, Bootstrap, HTML5, CSS3, Vue.js, React.js and Flutter</strong>. 
+          Additionally, I have hands-on experience with <strong>API integration, payment gateway solutions, 
+          and AWS cloud services</strong>.</p>
 
-            <p>At <strong>Celex Technologies Pvt. Ltd.</strong>, I led and contributed to multiple projects 
-            in travel technology, e-commerce, and fintech, including:</p>
+          <p>At <strong>Celex Technologies Pvt. Ltd.</strong>, I led and contributed to multiple projects 
+          in travel technology, e-commerce, and fintech, including:</p>
 
-            <ul>
-                <li><strong>MakeMyHSRP.com</strong> - A high-security registration plate management system 
-                    built with PHP, MySQL, AWS, and integrated payment gateways.</li>
-                <li><strong>TripCheers.com & MSTHappyJourney.com</strong> - Travel booking platforms (flights, hotels, 
-                    holidays, recharges) with multi-currency support and agent commission modules.</li>
-                <li>Custom <strong>CRM and ERP applications</strong> with secure integrations of PayPal, PayU, 
-                    CCAvenue, Easebuzz, and CyberPlat APIs.</li>
-            </ul>
+          <ul>
+              <li><strong>MakeMyHSRP.com</strong> - A high-security registration plate management system 
+                  built with PHP, MySQL, AWS, and integrated payment gateways.</li>
+              <li><strong>TripCheers.com & MSTHappyJourney.com</strong> - Travel booking platforms (flights, hotels, 
+                  holidays, recharges) with multi-currency support and agent commission modules.</li>
+              <li>Custom <strong>CRM and ERP applications</strong> with secure integrations of PayPal, PayU, 
+                  CCAvenue, Easebuzz, and CyberPlat APIs.</li>
+          </ul>
 
-            <p>I hold an <strong>MCA degree from Sikkim Manipal Institute of Technology</strong> and 
-            have consistently demonstrated the ability to deliver efficient, scalable, and business-driven 
-            solutions. I am particularly interested in this opportunity because of <strong>growth-oriented environment</strong>.</p>
+          <p>I hold an <strong>MCA degree from Sikkim Manipal Institute of Technology</strong> and 
+          have consistently demonstrated the ability to deliver efficient, scalable, and business-driven 
+          solutions. I am particularly interested in this opportunity because of <strong>growth-oriented environment</strong>.</p>
 
-            <p>Enclosed is my resume for your review. I would be delighted to discuss in more detail how 
-            my skills and background align with your requirements and how I can contribute to your team’s success.</p>
+          <p>Enclosed is my resume for your review. I would be delighted to discuss in more detail how 
+          my skills and background align with your requirements and how I can contribute to your team’s success.</p>
 
-            <p>Thank you for your time and consideration.</p>
+          <p>Thank you for your time and consideration.</p>
 
-            <br>
-            <p>
-            Best regards,<br>
-            <strong>'.$fullname.'</strong><br>
-            📞 '.$phone.'<br>
-            📍 Nayapatti, Kolkata<br>
-            ✉️ '.$from_email.'
-            </p>
-        </div>
+          <br>
+          <p>
+          Best regards,<br>
+          <strong>'.$fullname.'</strong><br>
+          📞 '.$phone.'<br>
+          📍 Nayapatti, Kolkata<br>
+          ✉️ '.$from_email.'
+          </p>
+      </div>
+
         ';
 
         // Attach resume (adjust path as per your upload logic)
