@@ -246,6 +246,8 @@ class Hello extends Controller
     }
     public function update()
     {
+
+      $newName='';
         //echo "<pre>";
         //print_r($this->request->getPost());
         //exit;
