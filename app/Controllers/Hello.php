@@ -524,6 +524,46 @@ class Hello extends Controller
         return view('upload_doc_form');
     }
 
+      public function convertDocToPDF_let()
+      {
+          $file = $this->request->getFile('docs');
+
+          if (!$file->isValid()) {
+              return "File upload error!";
+          }
+
+          // Step 1: Upload DOCX file
+          $newName = $file->getRandomName();
+          $filePath = WRITEPATH . 'uploads/' . $newName;
+          $file->move(WRITEPATH . 'uploads/', $newName);
+
+          // Step 2: Load DOCX with PhpWord
+          $phpWord = \PhpOffice\PhpWord\IOFactory::load($filePath);
+
+          // Step 3: Convert DOCX → HTML (MOST IMPORTANT)
+          $htmlWriter = \PhpOffice\PhpWord\IOFactory::createWriter($phpWord, 'HTML');
+          $htmlPath = WRITEPATH . "uploads/" . $newName . ".html";
+          $htmlWriter->save($htmlPath);
+
+          // Step 4: Load HTML → Convert to PDF using DomPDF
+          $dompdf = new \Dompdf\Dompdf();
+          $dompdf->loadHtml(file_get_contents($htmlPath));
+          $dompdf->setPaper('A4', 'portrait');
+          $dompdf->render();
+
+          // Step 5: Create PDF file
+          $pdfName = pathinfo($newName, PATHINFO_FILENAME) . ".pdf";
+          $pdfPath = WRITEPATH . "uploads/" . $pdfName;
+
+          file_put_contents($pdfPath, $dompdf->output());
+
+          // Step 6: Delete DOCX + HTML after PDF generated
+          unlink($filePath);
+          unlink($htmlPath);
+
+          // Step 7: Download PDF and delete after download
+          return $this->response->download($pdfPath, null)->setFileName($pdfName)->setContentType('application/pdf')->setFileDeleted(true);
+      }
 
     public function uploadImage()
     {
