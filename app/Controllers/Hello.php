@@ -7,6 +7,7 @@ use CodeIgniter\Controller;
 use App\Models\StudentModel;
 use CodeIgniter\Events\Events;
 use App\Libraries\Addrecord;
+use PhpOffice\PhpWord\IOFactory;
 //use TCPDF;
 class Hello extends Controller
 {
@@ -517,6 +518,13 @@ class Hello extends Controller
     {
         return view('upload_form');
     }
+
+    public function docpdfConvert()
+    {
+        return view('upload_doc_form');
+    }
+
+
     public function uploadImage()
     {
         try {
@@ -550,6 +558,54 @@ class Hello extends Controller
             log_message('error', 'PDF Generation Error: ' . $e->getMessage());
             return redirect()->back()->with('error', 'Something went wrong while generating the PDF.');
         }
+    }
+
+    public function convertDocTopdf()
+    {
+        $file = $this->request->getFile('docs');
+
+        if (!$file->isValid()) {
+        return "Invalid file";
+    }
+
+    // Upload path
+    $uploadPath = WRITEPATH . 'uploads/';
+    if (!is_dir($uploadPath)) mkdir($uploadPath, 0777, true);
+
+    // Move uploaded file
+    $newName = $file->getRandomName();
+    $file->move($uploadPath, $newName);
+
+    $docxPath = $uploadPath . $newName;
+
+    // Load DOCX
+    $phpWord = \PhpOffice\PhpWord\IOFactory::load($docxPath);
+
+    // Renderer
+    \PhpOffice\PhpWord\Settings::setPdfRendererName('TCPDF');
+    \PhpOffice\PhpWord\Settings::setPdfRendererPath(APPPATH . "Libraries/tcpdf/");
+
+    // Generate PDF
+    $pdfName = pathinfo($newName, PATHINFO_FILENAME) . ".pdf";
+    $pdfPath = $uploadPath . $pdfName;
+
+    $writer = \PhpOffice\PhpWord\IOFactory::createWriter($phpWord, 'PDF');
+    $writer->save($pdfPath);
+
+    // Delete DOCX
+    unlink($docxPath);
+
+    // Read PDF content manually
+    $pdfData = file_get_contents($pdfPath);
+
+    // Delete PDF after reading
+    unlink($pdfPath);
+
+    // Return PDF as download
+    return $this->response
+        ->setHeader('Content-Type', 'application/pdf')
+        ->setHeader('Content-Disposition', 'attachment; filename="' . $pdfName . '"')
+        ->setBody($pdfData);
     }
 
     public function skinImage()
