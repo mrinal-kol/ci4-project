@@ -700,7 +700,10 @@ class Hello extends Controller
         }
     }
 
-
+    public function deleterec($r)
+    {
+      echo "test";
+    }
 
 }
 

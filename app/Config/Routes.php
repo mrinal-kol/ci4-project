@@ -22,6 +22,6 @@ $routes->match(['get', 'post'], 'sendjobPost', 'Hello::jobpostemail');
 
 $routes->post('convert-doc-pdf', 'Hello::convertDocTopdf'); 
 //$routes->post('convert-doc-pdf', 'Hello::convertDocToPDF_let'); 
-
+$routes->get('delete/(:num)','Hello::deleterec/$f');
 
 //$routes->setAutoRoute(true);

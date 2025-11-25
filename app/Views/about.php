@@ -52,7 +52,7 @@
                                 Edit
                             </a>
                            
-                            <a href="<?= base_url('hello/delete/'.$student['id']) ?>" 
+                            <a href="<?= base_url('delete/'.$student['id']) ?>" 
                                class="btn btn-sm btn-danger"
                                onclick="return confirm('Are you sure you want to delete this record?');">
                                 Delete
