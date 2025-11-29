@@ -7,6 +7,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Job Application Form</title>
+   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -67,6 +69,47 @@
       background: #005bb5;
     }
   </style>
+   <style>
+        /* Modal Background */
+        #previewModal {
+            display:none;
+            position:fixed;
+            top:0; left:0;
+            width:100%; height:100%;
+            background:rgba(0,0,0,0.6);
+            padding:40px 0;
+            z-index:9999;
+        }
+
+        /* Modal Box */
+        #previewBox {
+            background:#fff;
+            width:60%;
+            max-height:80vh;
+            margin:auto;
+            padding:30px;
+            border-radius:10px;
+            box-shadow:0 0 20px rgba(0,0,0,0.4);
+            overflow-y:auto;    /* Enables scrolling inside popup */
+        }
+
+        /* Hide scrollbar overlay */
+        #previewBox::-webkit-scrollbar {
+            width:8px;
+        }
+        #previewBox::-webkit-scrollbar-thumb {
+            background:#bbb;
+            border-radius:10px;
+        }
+        #previewBtn {
+            background-color: red;
+            color: white;
+            border: none;
+        }
+        #previewBtn:hover {
+            background-color: darkred;
+        }
+    </style>
 </head>
 <body>
   <div class="form-container">
@@ -124,10 +167,29 @@
         <label for="resume">Upload Resume</label>
         <input type="file" id="resume" name="resume" accept=".pdf,.doc,.docx" >
       </div>
+      <div class="form-group">
+        <label for="information">Additional Information: </label>
+        <textarea id="information" name="information" rows='7'>▪ Total Experience: 9 Years<br> 
+▪ Current CTC: ₹80,000 per month <br>
+▪ Expected CTC: ₹1,20,000 per month <br>
+▪ Notice Period: Immediate Joiner<br></textarea>
+      </div>
       
       <button type="submit">Submit Application</button>
     </form>
+    <button id="previewBtn" >Preview Email</button>
   </div>
+  
+  <div id="previewModal">
+    <div id="previewBox">
+        <h3 class="text-center mb-3">Email Preview</h3>
+        <div id="previewContent" style="white-space:pre-line; font-size:16px;"></div>
+
+        <div class="text-end mt-4">
+            <button id="closePreview" class="btn btn-danger">Close</button>
+        </div>
+    </div>
+</div>
 </body>
 </html>
 <script>
@@ -140,5 +202,51 @@
                 setTimeout(() => msg.remove(), 1000); // fully remove after fade
             }
         }, 5000);
-    </script>
+    
+document.getElementById("previewBtn").addEventListener("click", function () {
+
+    let fullname     = document.getElementById("fullname").value;
+    let position     = document.getElementById("position").value;
+    let experience   = document.getElementById("experience").value;
+    let skills       = document.getElementById("skills").value;
+    let information  = document.getElementById("information").value;
+
+    let previewText = `
+Dear Hiring Manager,
+
+I am writing to formally apply for the position of ${position}. With ${experience} years of professional experience in web development, I have developed extensive expertise in ${skills}.
+
+At Celex Technologies Pvt. Ltd., I led and contributed to multiple projects in travel technology, e-commerce, and fintech, including:
+
+MakeMyHSRP.com - A high-security registration plate management system built with PHP, MySQL, AWS, and integrated payment gateways.
+TripCheers.com & MSTHappyJourney.com - Travel booking platforms (flights, hotels, holidays, recharges) with multi-currency support and agent commission modules.
+Custom CRM and ERP applications with secure integrations of PayPal, PayU, CCAvenue, Easebuzz, and CyberPlat APIs.
+
+I hold an MCA degree from Sikkim Manipal Institute of Technology and have consistently demonstrated the ability to deliver efficient, scalable, and business-driven solutions. I am particularly interested in this opportunity because of growth-oriented environment.
+
+Enclosed is my resume for your review. I would be delighted to discuss in more detail how my skills and background align with your requirements and how I can contribute to your team’s success.
+
+Thank you for your time and consideration.
+
+Additional Information:
+${information}
+    `;
+
+    document.getElementById("previewContent").innerText = previewText;
+    document.getElementById("previewModal").style.display = "block";
+});
+
+
+// Close on button click
+document.getElementById("closePreview").addEventListener("click", function () {
+    document.getElementById("previewModal").style.display = "none";
+});
+
+// Close when clicking anywhere outside modal box
+document.getElementById("previewModal").addEventListener("click", function (event) {
+    if (event.target === this) { 
+        this.style.display = "none";
+    }
+});
+</script>
 <?= $this->endSection() ?>

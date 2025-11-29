@@ -377,7 +377,13 @@ class Hello extends Controller
         $experience = $data['experience'];
         $skills     = $data['skills'];
         $to_email     = $data['toemail'];
-
+        $information     = $data['information'];
+        $extra_info ='';
+        if($information!='')
+        {
+             $extra_info ='<strong>Additional Information:</strong><br>'.$information;
+        }
+        //exit;
         //$to_email     = $emails10;
 
         //print_r($to_email);
@@ -416,8 +422,8 @@ class Hello extends Controller
           my skills and background align with your requirements and how I can contribute to your team’s success.</p>
 
           <p>Thank you for your time and consideration.</p>
-
-          <br>
+          '.$extra_info.'
+          
           <p>
           Best regards,<br>
           <strong>'.$fullname.'</strong><br>
@@ -428,7 +434,8 @@ class Hello extends Controller
       </div>
 
         ';
-
+        //echo $html;
+        //exit;
         // Attach resume (adjust path as per your upload logic)
         //$resumePath = FCPATH . 'uploads/' . ($data['resume'] ?? 'Mrinal_Kanti_Mandal_Resume.docx');
         /*
