@@ -438,17 +438,18 @@ class Hello extends Controller
         //exit;
         // Attach resume (adjust path as per your upload logic)
         //$resumePath = FCPATH . 'uploads/' . ($data['resume'] ?? 'Mrinal_Kanti_Mandal_Resume.docx');
-        /*
+        
         $resumeFile = $this->request->getFile('resume');
         $resumePath = '';
+        $resumePath = FCPATH . 'uploads/' .'1756203084_2bbc0a366f7b2ecf86e5.docx';
         if ($resumeFile && $resumeFile->isValid() && !$resumeFile->hasMoved()) {
             $newName = $resumeFile->getRandomName();  
             $resumeFile->move(FCPATH . 'uploads', $newName);  
             $resumePath = FCPATH . 'uploads/' . $newName;
         }
-        */
+        
 
-        $resumePath = FCPATH . 'uploads/' .'1756203084_2bbc0a366f7b2ecf86e5.docx';
+        
         $subject = 'Application for '.$position.' -'.$fullname;
         // Send email
         $send_email_status = $this->jobPostsendEmail($to_email, $subject, $html, $resumePath,$from_email);
