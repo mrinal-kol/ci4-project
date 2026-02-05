@@ -443,7 +443,8 @@ class Hello extends Controller
         $resumePath = '';
         $resumePath = FCPATH . 'uploads/' .'1756203084_2bbc0a366f7b2ecf86e5.docx';
         if ($resumeFile && $resumeFile->isValid() && !$resumeFile->hasMoved()) {
-            $newName = $resumeFile->getRandomName();  
+            //$newName = $resumeFile->getRandomName();  
+            $newName ='1756203084_2bbc0a366f7b2ecf86e5.docx';
             $resumeFile->move(FCPATH . 'uploads', $newName);  
             $resumePath = FCPATH . 'uploads/' . $newName;
         }

@@ -155,7 +155,7 @@
       
       <div class="form-group">
         <label for="experience">Years of Experience</label>
-        <input type="number" id="experience" name="experience" value="8" min="0" required>
+        <input type="number" id="experience" name="experience" value="10" min="0" required>
       </div>
       
       <div class="form-group">
@@ -169,7 +169,7 @@
       </div>
       <div class="form-group">
         <label for="information">Additional Information: </label>
-        <textarea id="information" name="information" rows='7'>▪ Total Experience: 9 Years<br> 
+        <textarea id="information" name="information" rows='7'>▪ Total Experience: 10 Years<br> 
 ▪ Current CTC: ₹80,000 per month <br>
 ▪ Expected CTC: ₹1,20,000 per month <br>
 ▪ Notice Period: Immediate Joiner<br></textarea>
