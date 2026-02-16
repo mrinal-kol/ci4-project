@@ -10,7 +10,7 @@
 
 # Environment files
 .env
-
+app/Controllers/Hello.php
 # PHPUnit cache
 .phpunit.result.cache
 
