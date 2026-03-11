@@ -53,7 +53,8 @@
             <tr>
             <td>Phone</td>
             <td>
-            <input type="text" name="phone" value="<?= old('phone', $data['phone'] ?? '') ?>" />
+            <input type="text" id="phone" name="phone" value="<?= old('phone', $data['phone'] ?? '') ?>" />
+            <p>Digits typed: <span id="count">0</span></p>
             <?php if(session('errors.phone')): ?>
             <div style="color:red"><?= session('errors.phone') ?></div>
             <?php endif; ?>
@@ -99,4 +100,18 @@
     </div>
    <?php endif; ?>
 
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+$(document).ready(function(){
+    var tot = "<?=$data['phone']?>";
+    $('#count').text(tot.length);
+    $('#phone').on('keyup',function(){
+        
+        var len = $(this).val().length;
+        $('#count').text(len);
+    
+    });
+});
+</script>
 <?= $this->endSection() ?>
