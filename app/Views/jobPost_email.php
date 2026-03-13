@@ -109,6 +109,20 @@
         #previewBtn:hover {
             background-color: darkred;
         }
+        .spinner {
+  border: 5px solid #f3f3f3;
+  border-top: 5px solid #0073e6;
+  border-radius: 50%;
+  width: 35px;
+  height: 35px;
+  animation: spin 1s linear infinite;
+  margin: auto;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
     </style>
 </head>
 <body>
@@ -126,7 +140,8 @@
             </div>
         <?php endif; ?>
       <!-- ✅ End Message -->
-    <form action="<?= base_url('sendjobPost') ?>" method="post" enctype="multipart/form-data">
+       <!-- action="<?= base_url('sendjobPost') ?>"  -->
+    <form  method="post" enctype="multipart/form-data" id="jobForm" >
       
       <div class="form-group">
         <label for="fullname">Full Name</label>
@@ -175,7 +190,11 @@
 ▪ Notice Period: Immediate Joiner<br></textarea>
       </div>
       
-      <button type="submit">Submit Application</button>
+      <button type="submit" id='submit_form'>Submit Application</button>
+      <div id="loader" style="display:none; text-align:center; margin-top:15px;">
+        <div class="spinner"></div>
+        Sending application...
+   </div>
     </form>
     <button id="previewBtn" >Preview Email</button>
   </div>
@@ -192,7 +211,42 @@
 </div>
 </body>
 </html>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script>
+ $(document).ready(function(){
+
+        $('#submit_form').on('click', function(e){
+             var fullname = $('#fullname').val().trim();
+        var email    = $('#email').val().trim();
+        var toemail  = $('#toemail').val().trim();
+
+        if(fullname == ''){
+            alert('Please enter Full Name');
+            $('#fullname').focus();
+            return false;
+        }
+
+        if(email == ''){
+            alert('Please enter From Email');
+            $('#email').focus();
+            return false;
+        }
+
+        if(toemail == ''){
+            alert('Please enter To Email');
+            $('#toemail').focus();
+            return false;
+        }          
+            e.preventDefault();
+
+            $('#submit_form').hide(); // hide button
+            $('#loader').show(); // show loader
+
+            $('#jobForm')
+                .attr('action', "<?= base_url('sendjobPost') ?>")
+                .submit();
+        });
+
         // Hide message after 5 seconds
         setTimeout(function() {
             var msg = document.getElementById("flash-message");
@@ -247,6 +301,7 @@ document.getElementById("previewModal").addEventListener("click", function (even
     if (event.target === this) { 
         this.style.display = "none";
     }
+});
 });
 </script>
 <?= $this->endSection() ?>
