@@ -160,7 +160,7 @@
       
       <div class="form-group">
         <label for="phone">Phone Number</label>
-        <input type="tel" id="phone" name="phone" value="8951167690 / 8910656660 / 6361386997" required>
+        <input type="tel" id="phone" name="phone" value="8951167690 / 6361386997" required>
       </div>
       
       <div class="form-group">
